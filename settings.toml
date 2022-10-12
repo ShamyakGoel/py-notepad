@@ -1,0 +1,12 @@
+setting-type = "toml"
+[default-setting]
+color = 'system'
+backgroundColor = 'black'
+newline = 'true'
+[user-details]
+user = false
+user-email = ""
+user-password = ""
+user-activated = ""
+[user-settings]
+none = true
