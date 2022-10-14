@@ -5,8 +5,6 @@ from tkinter.messagebox import showinfo,showerror
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 import os
 import string
-from matplotlib import font_manager
-fonts = font_manager.findSystemFonts(fontpaths=None, fontext='ttf')
 # for font in fonts:
     # name = os.path.basename(font)
     # if(name.split('.')[name.split('.').__len__()-1] == "ttf"):
@@ -186,7 +184,7 @@ def saveAs(a = 1):
 def o(a):
     print(a)
 def openFontMenu():
-    def selected_item():
+    def selected_item(a=1):
         for i in listbox.curselection():
             fname = listbox.get(i)
             TextArea.config(font=(fname, 13))
@@ -207,6 +205,7 @@ def openFontMenu():
     ScrollBar2.pack(side=BOTTOM, fill=X)
     ScrollBar2.config(command=listbox.xview)
     listbox.config(xscrollcommand=ScrollBar2.set, yscrollcommand=ScrollBar.set)
+    listbox.bind('<<ListboxSelect>>', selected_item)
 # Basic tkinter setup
 root = Tk()
 fontnames = tkFont.families(root)
