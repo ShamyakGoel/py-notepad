@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import Tk
 from tkinter.messagebox import showinfo
 from tkinter.filedialog import askopenfilename, asksaveasfilename
+import os
 import string
 ascii_letters = list(string.printable)
 ascii_letters.append('space')
@@ -13,6 +14,7 @@ file = None
 defaultspaces = 20
 strspace=  ''
 saved = False
+pre = ""
 # Message window
 class Message(object):
     def __init__(self,parent, title, message, *args, **kwargs):
@@ -123,6 +125,19 @@ def changetitle(a):
         else:
             root.title(F"*{title}")
         pass
+def newWindow(a):
+    os.system('py "e:\shamyak\FUN\window.py"')
+def saveAs(a):
+    file = asksaveasfilename(initialfile='Untitled.txt', defaultextension='.txt', filetypes=[("All Files", "*.*"), ("Text Documents", '.txt')])
+    if file == "":
+        file = None
+    else:
+        # Save as a new file
+        f = open(file, "w")
+        f.write(TextArea.get(1.0, END))
+        f.close()
+        root.title(os.path.basename(file) + " - Notepad")
+
 # Basic tkinter setup
 root = Tk()
 
@@ -141,12 +156,13 @@ Menubar = Menu(root)
 FileMenu = Menu(Menubar, tearoff=0)
 # Open new file
 FileMenu.add_command(label=f"New{strspace}Ctrl+N", command=newFile)
+FileMenu.add_command(label=f"New Window{strspace}Ctrl+Shift+N", command=newWindow)
 # To open already existing file
-FileMenu.add_command(label="Open{strspace}Ctrl+O", command=openFile)
+FileMenu.add_command(label=f"Open{strspace}Ctrl+O", command=openFile)
 # To save the current File
-FileMenu.add_command(label="Save{strspace}Ctrl+S", command=saveFile)
+FileMenu.add_command(label=f"Save{strspace}Ctrl+S", command=saveFile)
 # To save as different file
-FileMenu.add_command(label="Save As.. {strspace}Ctrl+Shift+S", command=saveFile)
+FileMenu.add_command(label=f"Save As{strspace}Ctrl+Shift+S", command=saveFile)
 FileMenu.add_separator()
 FileMenu.add_command(label="Exit", command=quitApp)
 # --------FILE MENU END------------
@@ -175,4 +191,8 @@ TextArea.config(yscrollcommand=ScrollBar.set)
 root.bind("<Control-n>", newFile)
 root.bind("<Control-o>", openFile)
 root.bind("<Control-s>", saveFile)
+def a(a):
+    print("hi")
+root.bind("<Control-Shift-S>", a)
+root.bind("<Control-Shift-N>", newWindow)
 root.mainloop()
